@@ -6,14 +6,14 @@ import (
 	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
 )
-
+var DB *gorm.DB
 func InitialDatabase() {
-
-	var DB *gorm.DB
-	DB, err := gorm.Open(sqlserver.Open("server=localhost,1433; user id=sa; password=@Qorey12"))
+	db, err := gorm.Open(sqlserver.Open("server=localhost,1433; user id=sa; password=@Qorey12; database=product"))
 	if (err != nil) {
 		panic(err)
 	}
 	fmt.Println("Koneksi berhasil")
-	DB.AutoMigrate(&Kurs{})
+	db.AutoMigrate(&Kurs{})
+
+	DB = db
 }
