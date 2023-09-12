@@ -56,3 +56,24 @@ func ShowKurs(ctx *fiber.Ctx) error {
 	}
 	return ctx.JSON(kurs)
 }
+
+func DeleteKurs(ctx *fiber.Ctx) error {
+	var idStr = ctx.Params("id")
+	id, err := uuid.Parse(idStr)
+
+	if err != nil {
+		return ctx.Status(404).JSON(fiber.Map{
+			"message": err.Error(),
+		})
+	}
+
+	var kurs models.Kurs
+	if models.DB.Delete(&kurs, id).Error != nil {
+		return ctx.Status(404).JSON(fiber.Map{
+			"message": "Not found",
+		})
+	}
+	return ctx.JSON(fiber.Map{
+		"message": "Data berhasil dihapus",
+	})
+}
