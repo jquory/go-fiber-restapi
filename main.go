@@ -12,9 +12,11 @@ func main() {
 
 	app := fiber.New()
 	app.Use(middleware.AuthMiddleware)
-	kurs := app.Group("/api")
+	api := app.Group("/api")
+	kurs := api.Group("/kurs")
 
-	kurs.Get("/kurs", kurscontrollers.GetAllKurs)
+	kurs.Get("/", kurscontrollers.GetAllKurs)
+	kurs.Post("/", kurscontrollers.CreateKurs)
 
 	app.Listen(":8080")
 }
