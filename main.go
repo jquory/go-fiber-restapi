@@ -17,6 +17,7 @@ func main() {
 
 	kurs.Get("/", kurscontrollers.GetAllKurs)
 	kurs.Post("/", kurscontrollers.CreateKurs)
+	kurs.Get("/:id", kurscontrollers.ShowKurs)
 
 	app.Listen(":8080")
 }

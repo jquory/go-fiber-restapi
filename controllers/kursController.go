@@ -4,7 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 	"github.com/jquory/go-fiber-restapi/models"
-	// "gorm.io/gorm"
+	"gorm.io/gorm"
 )
 
 func GetAllKurs(ctx *fiber.Ctx) error {
@@ -34,3 +34,25 @@ func CreateKurs(ctx *fiber.Ctx) error {
 	})
 }
 
+func ShowKurs(ctx *fiber.Ctx) error {
+	idStr := ctx.Params("Id")
+	Id, err := uuid.Parse(idStr)
+	var kurs models.Kurs
+	if err != nil {
+		return ctx.Status(404).JSON(fiber.Map{
+			"message": err.Error(),
+		})
+	}
+	if err := models.DB.First(&kurs, Id).Error
+	err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return ctx.Status(404).JSON(fiber.Map{
+				"message": "Data not Found",
+			})
+		}
+		return ctx.Status(500).JSON(fiber.Map{
+			"message": "Internal server error",
+		})
+	}
+	return ctx.JSON(kurs)
+}
