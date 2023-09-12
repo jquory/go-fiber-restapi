@@ -1,17 +1,9 @@
 package main
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"github.com/jquory/go-fiber-restapi/models"
 )
 
 func main() {
-	app := fiber.New()
-
-	app.Get("/", func (ctx *fiber.Ctx) error {
-		return ctx.JSON(fiber.Map{
-			"hello": "world",
-		})
-	})
-
-	app.Listen(":8080")
+	models.InitialDatabase()
 }
