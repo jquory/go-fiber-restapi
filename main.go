@@ -16,8 +16,9 @@ func main() {
 	kurs := api.Group("/kurs")
 
 	kurs.Get("/", kurscontrollers.GetAllKurs)
-	kurs.Post("/", kurscontrollers.CreateKurs)
 	kurs.Get("/:id", kurscontrollers.ShowKurs)
+	kurs.Post("/", kurscontrollers.CreateKurs)
+	kurs.Put("/:id", kurscontrollers.UpdateKurs)
 	kurs.Delete("/:id", kurscontrollers.DeleteKurs)
 
 	app.Listen(":8080")

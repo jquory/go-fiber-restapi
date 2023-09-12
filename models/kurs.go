@@ -1,10 +1,10 @@
 package models
 
 import (
-	"github.com/google/uuid"
+	mssql "github.com/microsoft/go-mssqldb"
 )
 
 type Kurs struct {
-	Id uuid.UUID `gorm:"type:uniqueidentifier;primary_key" json:"id"`
+	Id mssql.UniqueIdentifier `gorm:"type:uniqueidentifier;primary_key" json:"id"`
 	Name string `gorm:"type:varchar(300)" json:"name"`
 }
