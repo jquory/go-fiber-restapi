@@ -2,7 +2,9 @@ package kurscontrollers
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 	"github.com/jquory/go-fiber-restapi/models"
+	// "gorm.io/gorm"
 )
 
 func GetAllKurs(ctx *fiber.Ctx) error {
@@ -19,6 +21,7 @@ func CreateKurs(ctx *fiber.Ctx) error {
 			"message": err.Error(),
 		})
 	}
+	kurs.Id = uuid.New()
 
 	if err := models.DB.Create(&kurs).Error
 	err != nil {
@@ -27,6 +30,7 @@ func CreateKurs(ctx *fiber.Ctx) error {
 		})
 	}
 	return ctx.JSON(fiber.Map{
-		"name": kurs.Name,
+		"id": kurs.Id,
 	})
 }
+
