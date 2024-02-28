@@ -10,11 +10,14 @@ import (
 var DB *gorm.DB
 func InitialDatabase() {
 	db, err := gorm.Open(sqlserver.Open("server=localhost,1433; user id=sa; password=@Qorey12; database=product"))
-	if (err != nil) {
+	if err != nil {
 		panic(err)
 	}
 	fmt.Println("Koneksi berhasil")
-	db.AutoMigrate(&Kurs{})
+	err = db.AutoMigrate(&Kurs{})
+	if err != nil {
+		return
+	}
 
 	DB = db
 }
